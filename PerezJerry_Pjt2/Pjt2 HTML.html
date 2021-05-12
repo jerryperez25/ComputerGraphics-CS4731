@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="Style.css">
+    <meta charset="utf-8" />
+    <title>Jerry Perez Project 2 - CS 4731</title>
+
+    <script id="vshader" type="x-shader/x-vertex">
+	attribute vec4 vPosition;
+	attribute vec4 vColor;
+	uniform float vPointSize;
+	uniform mat4 viewMatrix;
+	uniform mat4 projMatrix;
+	uniform mat4 modelMatrix;
+	varying vec4 fColor;
+
+	void main() {
+		gl_Position = projMatrix * viewMatrix * modelMatrix * vPosition;	// Matrix * Point position
+  		gl_PointSize = vPointSize;		// Point size
+		fColor = vColor;			// Pass point color to fragment shader
+  	}
+	</script>
+
+    <script id="fshader" type="x-shader/x-fragment">
+	precision mediump float;
+	varying vec4 fColor;
+
+	void main()
+	{
+		gl_FragColor = fColor;	// Point color
+  	}
+	</script>
+
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/initShaders.js"></script>
+    <script src="lib/MV.js"></script>
+
+    <script src="Pjt2.js"></script>
+
+</head>
+
+<body onload="main()">
+<h1 id = "titleslot">
+    CS 4731 Project 2
+</h1>
+<div id="canvas"></div>
+<canvas id="webgl" width="400" height="400">
+    Please use a browser that supports the "canvas" tag.
+</canvas>
+<div id="input"></div>
+<input id="FileInsertion" type="file" name="plyFile">
+
+
+<div id="description"></div>
+<p>
+    Press <b>X</b> to translate your wireframe in the positive x direction.
+</p>
+<p>
+    Press <b>C</b> to translate your wireframe in the negative x direction.
+</p>
+<p>
+    Press <b>Y</b> to translate your wireframe in the positive y direction.
+</p>
+<p>
+    Press <b>U</b> to translate your wireframe in the negative y direction.
+</p>
+<p>
+    Press <b>Z</b> to translate your wireframe in the positive z direction.
+</p>
+<p>
+    Press <b>A</b> to translate your wireframe in the negative z direction.
+</p>
+<p>
+    Press <b>R</b> to rotate your wireframe in an X-roll about it's current position.
+</p>
+<p>
+    Press <b>B</b> to toggle mesh pulsing.
+</p>
+<p>
+    <b>Press each key once more to stop the action.</b>
+</p>
+
+
+
+</body>
+</html>

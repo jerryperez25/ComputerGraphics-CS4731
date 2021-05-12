@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="Style.css">
+    <meta charset="utf-8" />
+    <title>Jerry Perez Project 1 - CS 4731</title>
+
+    <script id="vshader" type="x-shader/x-vertex">
+	attribute vec4 vPosition;
+	attribute vec4 vColor;
+	uniform float vPointSize;
+	uniform mat4 projMatrix;
+	varying vec4 fColor;
+
+	void main() {
+		gl_Position = projMatrix * vPosition;	// Matrix * Point position
+  		gl_PointSize = vPointSize;		// Point size
+		fColor = vColor;			// Pass point color to fragment shader
+  	}
+	</script>
+
+    <script id="fshader" type="x-shader/x-fragment">
+	precision mediump float;
+	varying vec4 fColor;
+
+	void main()
+	{
+		gl_FragColor = fColor;	// Point color
+  	}
+	</script>
+
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/initShaders.js"></script>
+    <script src="lib/MV.js"></script>
+
+    <script src="Pjt1JavaScript.js"></script>
+
+</head>
+
+<body onload="main()">
+    <h1 id = "titleslot">
+        File Mode
+    </h1>
+    <div id="canvas"></div>
+        <canvas id="webgl" width="400" height="400">
+            Please use a browser that supports the "canvas" tag.
+        </canvas>
+    <div id="input"></div>
+        <input id="FileInsertion" type="file" name="datFile">
+
+
+    <div id="description"></div>
+        <p>
+            Press <b>F</b> to enter file mode.
+        </p>
+        <p>
+            Press <b>D</b> to enter draw mode.
+        </p>
+        <p>
+            Press <b>C</b> to cycle through colors.
+        </p>
+        <p>
+            Press <b>X</b> to manually clear the canvas.
+        </p>
+        <p>
+            Hold <b>B</b> while clicking to start a new polyline. <br>
+            Each click thereafter will be added to the new polyline. <br>
+            This will cause completion of the existing polyline and new clicks <br>
+            will be registered as a new polyline. <br>
+        </p>
+
+</body>
+</html>
